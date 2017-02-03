@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "684500561801",
+    "project_id": "lunar-bonus-143212"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:684500561801:android:ccf3eeb359d08f12",
+        "android_client_info": {
+          "package_name": "app.project.crashingapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhx5xXPwrfPphNVTs-5Jw3T1MoJKPUILg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-91366549-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
