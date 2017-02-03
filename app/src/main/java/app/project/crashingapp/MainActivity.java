@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,12 +36,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Digit Framework.
         Digits.Builder digitsBuilder = new Digits.Builder().withTheme(R.style.CustomDigitsTheme);
         TwitterAuthConfig authConfig = new TwitterAuthConfig(Const.TWITTER_KEY, Const.TWITTER_SECRET);
-        Fabric.with(this, new TwitterCore(authConfig), digitsBuilder.build());
+        Fabric.with(this, new Crashlytics(), new TwitterCore(authConfig), digitsBuilder.build());
+
         digitsButton = (DigitsAuthButton) findViewById(R.id.auth_button);
         digitsButton.setCallback(new AuthCallback() {
             @Override
             public void success(DigitsSession session, String phoneNumber) {
-                // TODO: associate the session userID with your user model
                 Toast.makeText(getApplicationContext(), "Authentication successful for "
                         + phoneNumber, Toast.LENGTH_LONG).show();
             }
@@ -57,8 +58,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
+
+
         //Digit Service
-        TextView t = null;
-        t.setText("");
+        ListView l = null;
+        l.setAdapter(null);
     }
 }
