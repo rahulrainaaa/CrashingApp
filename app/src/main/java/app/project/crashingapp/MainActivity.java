@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -30,8 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.btn).setOnClickListener(this);
 
         //Crashlytics Service.
-        Fabric.with(this, new Crashlytics());
-
+        //Fabric.with(this, new Crashlytics());
 
         //Digit Framework.
         Digits.Builder digitsBuilder = new Digits.Builder().withTheme(R.style.CustomDigitsTheme);
@@ -52,16 +49,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-
     }
 
     @Override
     public void onClick(View v) {
 
+        Digits.getInstance().logout();
 
 
-        //Digit Service
-        ListView l = null;
-        l.setAdapter(null);
+        //ListView l = null;
+        //l.setAdapter(null);
     }
 }
