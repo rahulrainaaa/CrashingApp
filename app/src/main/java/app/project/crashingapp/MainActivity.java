@@ -12,35 +12,26 @@ import com.twitter.sdk.android.core.TwitterCore;
 
 import io.fabric.sdk.android.Fabric;
 
-public class MainActivity extends AppCompatActivity {
-
-    private static final String TWITTER_KEY = "--------------";
-    private static final String TWITTER_SECRET = "---------------";
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
-        Fabric.with(this, new TwitterCore(authConfig), new Digits.Builder().build());
-
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
 
-
+        //Crashlytics Service
         Fabric.with(this, new Crashlytics());
 
         Button b = new Button(this);
-        b.setText("click button ");
+        b.setText("click button");
         setContentView(b);
+        b.setOnClickListener(this);
+    }
 
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    @Override
+    public void onClick(View v) {
 
-                //Write some app crashing code.
-
-
-            }
-        });
+        //Digit Service
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(Const.TWITTER_KEY, Const.TWITTER_SECRET);
+        Fabric.with(this, new TwitterCore(authConfig), new Digits.Builder().build());
     }
 }
