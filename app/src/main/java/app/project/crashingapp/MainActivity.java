@@ -2,11 +2,17 @@ package app.project.crashingapp;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.digits.sdk.android.AuthCallback;
 import com.digits.sdk.android.Digits;
+import com.digits.sdk.android.DigitsAuthButton;
+import com.digits.sdk.android.DigitsException;
+import com.digits.sdk.android.DigitsSession;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterCore;
 
@@ -14,24 +20,45 @@ import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private DigitsAuthButton digitsButton = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        findViewById(R.id.btn).setOnClickListener(this);
 
-        //Crashlytics Service
+        //Crashlytics Service.
         Fabric.with(this, new Crashlytics());
 
-        Button b = new Button(this);
-        b.setText("click button");
-        setContentView(b);
-        b.setOnClickListener(this);
+
+        //Digit Framework.
+        Digits.Builder digitsBuilder = new Digits.Builder().withTheme(R.style.CustomDigitsTheme);
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(Const.TWITTER_KEY, Const.TWITTER_SECRET);
+        Fabric.with(this, new TwitterCore(authConfig), digitsBuilder.build());
+        digitsButton = (DigitsAuthButton) findViewById(R.id.auth_button);
+        digitsButton.setCallback(new AuthCallback() {
+            @Override
+            public void success(DigitsSession session, String phoneNumber) {
+                // TODO: associate the session userID with your user model
+                Toast.makeText(getApplicationContext(), "Authentication successful for "
+                        + phoneNumber, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void failure(DigitsException exception) {
+                Log.d("Digits", "Sign in with Digits failure", exception);
+            }
+        });
+
+
     }
 
     @Override
     public void onClick(View v) {
 
         //Digit Service
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(Const.TWITTER_KEY, Const.TWITTER_SECRET);
-        Fabric.with(this, new TwitterCore(authConfig), new Digits.Builder().build());
+        TextView t = null;
+        t.setText("");
     }
 }
